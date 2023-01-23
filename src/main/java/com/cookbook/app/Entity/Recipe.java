@@ -17,8 +17,8 @@ public class Recipe {
     private String description;
     private String instructions;
     @ManyToOne
-    private Ingredients ingredients;
+    private Ingredient ingredients;
     @ManyToOne
-    private Comments comments;
+    private Comment comments;
 
 }
