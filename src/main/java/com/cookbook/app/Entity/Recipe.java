@@ -1,14 +1,15 @@
 package com.cookbook.app.Entity;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Entity
 public class Recipe {
     @Id
     Long id;

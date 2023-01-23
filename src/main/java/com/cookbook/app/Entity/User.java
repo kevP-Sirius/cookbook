@@ -1,23 +1,22 @@
 package com.cookbook.app.Entity;
-
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "_user")
 public class User {
     @Id
     private Long id;
     private String username;
     private String password;
     private String email;
-    @ManyToOne
-    private List<Recipe> recipes;
+    @OneToMany
+    private Set<Recipe> recipes;
+
 }
