@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Ingredients {
+public class Ingredient {
     @Id
     private Long id;
     private String name;

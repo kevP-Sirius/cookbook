@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Comments {
+public class Comment {
     @Id
     private Long id;
     private String text;
