@@ -1,6 +1,7 @@
 package com.cookbook.app.Controller;
 
 import com.cookbook.app.Dto.RecipeDto;
+import com.cookbook.app.Dto.RecipeUpdateDto;
 import com.cookbook.app.Entity.Ingredient;
 import com.cookbook.app.Entity.Recipe;
 import com.cookbook.app.Repository.IngredientRepository;
@@ -58,10 +59,28 @@ private final IngredientService ingredientService;
         mav.setViewName("recipe_create");
         return mav;
     }
-    @PostMapping("/recipe/update")
-    public ModelAndView updateRecipePage(ModelAndView mav) {
-        mav.setViewName("recipe_list");
+    @GetMapping("/recipe/update/{id}")
+    public ModelAndView updateFormRecipePage(ModelAndView mav, @PathVariable Long id) {
+        Recipe recipe = recipeService.findById(id);
+        mav.addObject("recipe",recipe);
+        mav.setViewName("recipe_update");
         return mav;
+    }
+    @PostMapping("/recipe/update/{id}")
+    public boolean updateDataRecipePage(ModelAndView mav, @RequestBody RecipeUpdateDto formData) {
+        Recipe recipe = new Recipe();
+        recipe.setId(formData.getId());
+        recipe.setName(formData.getName());
+        recipe.setDescription(formData.getDescription());
+        List<Ingredient> ingredientList = Arrays.stream(formData.getIngredients()).map(ingredientDto -> {
+            Ingredient ingredient = new Ingredient();
+            ingredient.setName(ingredientDto.getName());
+            ingredient.setQuantity(ingredientDto.getQuantity());
+            ingredientService.createIngredient(ingredient);
+            return ingredient;
+        }).toList();
+        recipe.setIngredients(new HashSet<>(ingredientList));
+        return recipeService.updateRecipe(recipe);
     }
     @GetMapping("/recipe/delete/{id}")
     public ModelAndView deleteRecipePage(ModelAndView mav,@PathVariable Long id) {
