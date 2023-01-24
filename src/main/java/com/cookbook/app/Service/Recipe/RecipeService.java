@@ -22,6 +22,10 @@ public class RecipeService implements IRecipeService{
         return recipeRepository.findAll();
     }
 
+    public Recipe findById(Long id) {
+        return recipeRepository.findById(id).orElseThrow();
+    }
+
     public Recipe createRecipe(Recipe recipe){
         return recipeRepository.save(recipe);
     }
