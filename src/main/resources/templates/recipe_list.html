@@ -12,19 +12,22 @@
 <body>
 
     <div th:each="recipe : ${recipe_list}">
-        <div th:text="${recipe.name}"></div>
-        <div th:text="${recipe.description}"></div>
-        <div th:text="${recipe.rate}"></div>
-        <div th:each=" ingredient : ${recipe.ingredients}">
-            <div th:text="${ingredient.name}"></div>
-            <div th:text="${ingredient.amount}"></div>
-        </div>
+        <div th:text="${'name : '+ recipe.name}"></div>
+        <div th:text="${'description : ' +recipe.description}"></div>
+        <div th:text="${'rate : ' +recipe.rate}"></div>
+        <div>Ingredients list<div>
+<ol>
+    <li class=""th:each="ingredient : ${recipe.ingredients}">
+        <div th:text="${ 'name : '+ingredient.name}"></div>
+        <div th:text="${'quantity : '+ingredient.quantity}"></div>
+    </li>
+</ol>
         <a th:href="@{/recipe/delete/{id}(id=${recipe.id})}">Delete</a>
         <a th:href="@{/recipe/update/{id}(id=${recipe.id})}">Update</a>
+        <hr/>
     </div>
 <script th:block>
-    let data = [[${recipe_list}]];
-    console.log(data);
+
 </script>
 
 </body>

@@ -1,10 +1,10 @@
 package com.cookbook.app.Entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Setter
 @Getter
@@ -12,14 +12,16 @@ import lombok.Setter;
 @Entity
 public class Recipe {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     Long id;
     private String name;
     private String description;
     private String instructions;
     private int rate;
-    @ManyToOne
-    private Ingredient ingredients;
-    @ManyToOne
-    private Comment comments;
+    @OneToMany
+    private Set<Ingredient> ingredients;
+    @OneToMany
+    private Set<Comment> comments;
 
 }

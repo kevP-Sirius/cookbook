@@ -25,8 +25,8 @@ public class RecipeService implements IRecipeService{
         return recipeRepository.save(recipe);
     }
 
-    public boolean deleteRecipe(Recipe recipe){
-        recipeRepository.delete(recipe);
+    public boolean deleteRecipe(Long id){
+        recipeRepository.deleteById(id);
 
         return true;
     }

@@ -1,7 +1,6 @@
 package com.cookbook.app.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,9 @@ import lombok.Setter;
 @Entity
 public class Ingredient {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    private String description;
+    private int quantity;
 }

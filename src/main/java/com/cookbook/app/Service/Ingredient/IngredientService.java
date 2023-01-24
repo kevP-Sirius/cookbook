@@ -2,9 +2,10 @@ package com.cookbook.app.Service.Ingredient;
 
 import com.cookbook.app.Entity.Ingredient;
 import com.cookbook.app.Repository.IngredientRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class IngredientService implements IIngredientService{
     private final IngredientRepository ingredientRepository;
 
@@ -16,7 +17,7 @@ public class IngredientService implements IIngredientService{
         return ingredientRepository.findAll();
     }
 
-    public Ingredient createRecipe(Ingredient ingredient){
+    public Ingredient createIngredient(Ingredient ingredient){
         return ingredientRepository.save(ingredient);
     }
 
