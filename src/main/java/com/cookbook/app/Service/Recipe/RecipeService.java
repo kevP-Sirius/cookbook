@@ -2,6 +2,7 @@ package com.cookbook.app.Service.Recipe;
 
 import com.cookbook.app.Entity.Recipe;
 import com.cookbook.app.Repository.RecipeRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,12 +34,15 @@ public class RecipeService implements IRecipeService{
 
     @Transactional
     public boolean updateRecipe(Recipe recipe){
-        Recipe recipe1 = recipeRepository.findById(recipe.getId()).orElseThrow(() -> {
+        Recipe recipeDAO = recipeRepository.findById(recipe.getId()).orElseThrow(() -> {
             throw  new IllegalStateException("Recipe does not exist");
         });
 
-        recipe1 = recipe;
-
-        return true;
+        try {
+            new ModelMapper().map(recipe, recipeDAO);
+            return true;
+        }catch (IllegalStateException e){
+            throw e;
+        }
     }
 }
