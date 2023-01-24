@@ -16,6 +16,7 @@ public class Recipe {
     private String name;
     private String description;
     private String instructions;
+    private int rate;
     @ManyToOne
     private Ingredient ingredients;
     @ManyToOne
