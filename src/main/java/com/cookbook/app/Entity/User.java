@@ -21,4 +21,9 @@ public class User {
     @OneToMany
     private Set<Recipe> recipes;
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
