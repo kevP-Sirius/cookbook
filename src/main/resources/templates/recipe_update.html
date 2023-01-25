@@ -8,7 +8,7 @@
         <input type="text" name="description" th:value="${recipe.description}" placeholder="description">
         <div>
             <input type="text" name="ingredients" placeholder="ingredients">
-            <input type="number" name="quantite" placeholder="quantite">
+            <input type="number" name="quantity" placeholder="quantity">
             <button type="button" id="addIngredient">Add ingredient</button>
         </div>
         <input type="submit" value="Create">
@@ -16,7 +16,7 @@
 <div class="d-flex flex-column" id="ingredientsListContainer">
     Ingredients:
     <ul id="ingredientsList">
-        <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.name} + ' ' + ${ingredient.quantite}"></li>
+        <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.name} + ' ' + ${ingredient.quantity}"></li>
     </ul>
 </div>
 </body>
@@ -24,22 +24,20 @@
     var thymeleafVariable = /*[[${recipe.ingredients}]]*/ 'default value';
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded",()=>{
-        let ingredients = JSON.parse($('#elementData').attr('Ingredients'));
-    })
-    let ingredients = [];
+
+    let ingredients =thymeleafVariable;
         $('#addIngredient').click(function () {
             let ingredient = {
                 name: $('input[name="ingredients"]').val(),
-                quantite: $('input[name="quantite"]').val()
+                quantity: $('input[name="quantity"]').val()
             };
             ingredients=[...ingredients,ingredient];
             $("input[name='ingredients']").val('');
-            $('input[name="quantite"]').val('');
+            $('input[name="quantity"]').val('');
             console.log(ingredients);
             $('#ingredientsList').empty();
             ingredients.forEach(function (ingredient) {
-                $('#ingredientsList').append('<li>' + ingredient.name + ' ' + ingredient.quantite + '</li>');
+                $('#ingredientsList').append('<li>' + ingredient.name + ' ' + ingredient.quantity + '</li>');
             })
         });
        document.addEventListener("submit", function(event) {
@@ -50,7 +48,7 @@
            formData.name = $("input[name='name']").val();
            formData.description = $("input[name='description']").val();
            formData.ingredients = ingredients;
-           fetch("/recipe/create", {
+           fetch("/recipe/update/"+ id, {
                method: "POST",
                body: JSON.stringify(formData),
                 headers: {

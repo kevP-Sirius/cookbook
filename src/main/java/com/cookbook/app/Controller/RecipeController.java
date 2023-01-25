@@ -68,19 +68,7 @@ private final IngredientService ingredientService;
     }
     @PostMapping("/recipe/update/{id}")
     public boolean updateDataRecipePage(ModelAndView mav, @RequestBody RecipeUpdateDto formData) {
-        Recipe recipe = new Recipe();
-        recipe.setId(formData.getId());
-        recipe.setName(formData.getName());
-        recipe.setDescription(formData.getDescription());
-        List<Ingredient> ingredientList = Arrays.stream(formData.getIngredients()).map(ingredientDto -> {
-            Ingredient ingredient = new Ingredient();
-            ingredient.setName(ingredientDto.getName());
-            ingredient.setQuantity(ingredientDto.getQuantity());
-            ingredientService.createIngredient(ingredient);
-            return ingredient;
-        }).toList();
-        recipe.setIngredients(new HashSet<>(ingredientList));
-        return recipeService.updateRecipe(recipe);
+        return recipeService.updateRecipe(formData);
     }
     @GetMapping("/recipe/delete/{id}")
     public ModelAndView deleteRecipePage(ModelAndView mav,@PathVariable Long id) {
